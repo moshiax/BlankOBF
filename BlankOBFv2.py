@@ -52,7 +52,7 @@ class BlankOBFv2:
                 module = node.module
                 for name in node.names:
                     self._imports.append((module, name.name))
-        self._imports.sort(reverse= True)
+        self._imports.sort(reverse=True, key=lambda x: len(x[1]) + len(x[0]) if x[0] is not None else 0)
     
     def _prepend_imports(self) -> None:
         for module, submodule in self._imports:
