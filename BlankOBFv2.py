@@ -93,26 +93,26 @@ class BlankOBFv2:
             
             # Module level docstrings
             if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-                tree.body[index] = ast.Pass
+                tree.body[index] = ast.Pass()
 
             # Function level docstrings
             elif isinstance(node, ast.FunctionDef) or isinstance(node, ast.AsyncFunctionDef):
                 for index, expr in enumerate(node.body):
                     if (isinstance(expr, ast.Expr) and isinstance(expr.value, ast.Constant)):
-                        node.body[index] = ast.Pass
+                        node.body[index] = ast.Pass()
             
             elif isinstance(node, ast.ClassDef):
                 for index, expr in enumerate(node.body):
 
                     # Class level docstrings
                     if isinstance(expr, ast.Expr) and isinstance(expr.value, ast.Constant):
-                        node.body[index] = ast.Pass
+                        node.body[index] = ast.Pass()
 
                     # Class method level docstrings
                     elif isinstance(expr, ast.FunctionDef) or isinstance(expr, ast.AsyncFunctionDef):
                         for index, node in enumerate(expr.body):
                             if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-                                expr.body[index] = ast.Pass
+                                expr.body[index] = ast.Pass()
         self._code = ast.unparse(tree)
                 
     def _insert_dummy_comments(self) -> None:
