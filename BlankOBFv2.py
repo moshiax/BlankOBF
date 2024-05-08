@@ -344,14 +344,14 @@ def main() -> None:
     if not args.output:
         args.output = "Obfuscated_%s.py" % (str.rsplit(os.path.basename(args.input), ".", 1)[0])
 
-    with open(args.input, "r") as file:
+    with open(args.input, "r", encoding="utf-8") as file:
         contents = file.read()
 
     obfuscator = BlankOBFv2(contents, args.include_imports, int(args.recursive) if args.recursive else 1)
     obfuscated_code = obfuscator.obfuscate()
 
     try:
-        with open(args.output, "w") as file:
+        with open(args.output, "w", encoding="utf-8") as file:
             file.write(obfuscated_code)
     except Exception:
         print("Unable to save the file.")
