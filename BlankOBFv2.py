@@ -53,16 +53,20 @@ class BlankOBFv2:
         return self._code
     
     def _save_imports(self) -> None:
-        tree = ast.parse(self._code)
-        for node in tree.body:
+        def visit_node(node):
             if isinstance(node, ast.Import):
                 for name in node.names:
                     self._imports.append((None, name.name))
-
-            if isinstance(node, ast.ImportFrom):
+            elif isinstance(node, ast.ImportFrom):
                 module = node.module
                 for name in node.names:
                     self._imports.append((module, name.name))
+
+            for child_node in ast.iter_child_nodes(node):
+                visit_node(child_node)
+
+        tree = ast.parse(self._code)
+        visit_node(tree)
         self._imports.sort(reverse=True, key=lambda x: len(x[1]) + len(x[0]) if x[0] is not None else 0)
     
     def _prepend_imports(self) -> None:
