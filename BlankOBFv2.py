@@ -67,6 +67,8 @@ class BlankOBFv2:
 
         tree = ast.parse(self._code)
         visit_node(tree)
+        
+        self._imports = list(set(self._imports))
         self._imports.sort(reverse=True, key=lambda x: len(x[1]) + len(x[0]) if x[0] is not None else 0)
     
     def _prepend_imports(self) -> None:
@@ -391,6 +393,7 @@ def main() -> None:
     try:
         with open(args.output, "w", encoding="utf-8") as file:
             file.write(obfuscated_code)
+        print("Saved files as `%s`" % args.output)
     except Exception:
         print("Unable to save the file.")
 
