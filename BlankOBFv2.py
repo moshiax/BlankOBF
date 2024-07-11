@@ -15,7 +15,7 @@ class BlankOBFv2:
         self._code = code
         self._imports = []
         self._aliases = {}
-        self._valid_identifiers = [chr(i) for i in range(256, 0x24976) if chr(i).isidentifier()]
+        self._valid_identifiers = [chr(x) for x in range(sys.maxunicode) if chr(x).isidentifier()]
 
         # Options
         self.__include_imports = include_imports
