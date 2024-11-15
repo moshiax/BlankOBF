@@ -202,16 +202,16 @@ class BlankOBFv2:
                 if isinstance(node.value, int):
                     choice = random.randint(1, 2)
                     match choice:
-                        case 1: # fn(x) = x*n - x*(n-1) ; Where n > 69^3
-                            num = random.randint(69**3, sys.maxsize)
+                        case 1: # fn(x) = x*n - x*(n-1) ; Where n > 2^16
+                            num = random.randint(2 ** 16, sys.maxsize)
                             left = node.value * num
                             right = node.value * (num - 1)
                             node = ast.BinOp(left=ast.Constant(value=left), 
                                             op=ast.Sub(),
                                             right=ast.Constant(value=right))
                         
-                        case 2: # fn(x) = ((n*2) + (x*2*m)) // 2 - n - x*(m-1)   ; Where n > 69^3, m ∈ [50, 500]
-                            num = random.randint(69**3, sys.maxsize)
+                        case 2: # fn(x) = ((n*2) + (x*2*m)) // 2 - n - x*(m-1) ; Where n > 2^16, m ∈ [50, 500]
+                            num = random.randint(2 ** 16, sys.maxsize)
                             times = random.randint(50, 500)
                             node = ast.BinOp(
                                 left=ast.BinOp(
