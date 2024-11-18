@@ -365,15 +365,13 @@ def main() -> None:
         prog=os.path.basename(__file__),
         description="BlankOBF v2: Obfuscates Python code to make it unreadable and hard to reverse."
     )
-    parser.add_argument("--input", "-i", required=True, help="The file containing the code to obfuscate", metavar="PATH")
+    parser.add_argument("input", help="The file containing the code to obfuscate", metavar="PATH")
     parser.add_argument("--output", "-o", required=False, 
                         help="The file to write the obfuscated code (defaults to Obfuscated_[input].py)",
                         metavar="PATH")
     parser.add_argument("--recursive", required=False, 
                         help="Recursively obfuscates the code N times (slows down the code; not recommended)",
                         metavar="N")
-    parser.add_argument("--include_imports", required=False, action="store_true",
-                        help="Include the import statements on the top of the obfuscated file")
     
     args = parser.parse_args()
 
@@ -387,7 +385,7 @@ def main() -> None:
     with open(args.input, "r", encoding="utf-8") as file:
         contents = file.read()
 
-    obfuscator = BlankOBFv2(contents, args.include_imports, int(args.recursive) if args.recursive else 1)
+    obfuscator = BlankOBFv2(contents, include_imports=True)
     obfuscated_code = obfuscator.obfuscate()
 
     try:
