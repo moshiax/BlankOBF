@@ -7,6 +7,9 @@
 - **Customization:** Offers various options to customize the obfuscation process, such as recursive obfuscation and inclusion of imports.
 - **Command-line Interface:** Convenient command-line interface for easy integration into your development workflow.
 
+## Dependencies
+- Python 3.10 or newer.
+
 ## Usage
 ### From command line:
 ```bash
