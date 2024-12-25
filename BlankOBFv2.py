@@ -92,9 +92,7 @@ class BlankOBFv2:
                 
     def _remove_comments_and_docstrings(self) -> None:
         tree = ast.parse(self._code)
-        tree.body.insert(0, ast.Expr(
-                    value=ast.Constant(":: You managed to break through BlankOBF v2; Give yourself a pat on your back! ::")
-                ))
+
         for index, node in enumerate(tree.body[1:]):
             
             # Module level docstrings
